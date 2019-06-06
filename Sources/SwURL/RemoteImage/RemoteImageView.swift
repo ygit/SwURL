@@ -14,7 +14,7 @@ public struct RemoteImageView: View {
     
     var url: URL
     
-    var options: (Image) -> Body
+    var options: ((Image) -> Body)
     
     var placeholderImage: Image?
     
@@ -26,8 +26,9 @@ public struct RemoteImageView: View {
         return options(res!)
     }
     
-    public init(url: URL, placeholderImage: Image? = nil, options: (Image) -> Image) {
+    public init(url: URL, placeholderImage: Image? = nil,  options: @escaping ((Image) -> Image)) {
         self.placeholderImage = placeholderImage
         self.url = url
+        self.options = options
     }
 }
