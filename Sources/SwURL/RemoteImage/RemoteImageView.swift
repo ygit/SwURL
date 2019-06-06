@@ -14,16 +14,19 @@ public struct RemoteImageView: View {
     
     var url: URL
     
+    var options: (Image) -> Body
+    
     var placeholderImage: Image?
     
     @State
     var remoteImage: RemoteImage = RemoteImage()
-    
-    public var body: some View {
-        return (remoteImage.load(url: url).image ?? placeholderImage)?.resizable()
+   
+    public var body: Image {
+        let res = remoteImage.load(url: url).image ?? placeholderImage
+        return options(res!)
     }
     
-    public init(url: URL, placeholderImage: Image? = nil) {
+    public init(url: URL, placeholderImage: Image? = nil, options: (Image) -> Image) {
         self.placeholderImage = placeholderImage
         self.url = url
     }
